@@ -1,48 +1,21 @@
-var Page = require('./page');
+import Page from './page';
 
-var LoginPage = Object.create(Page, {
-    /**
-     * define elements
-     */
-    emailField:    { get: function () { return $('#app > div > div > div.panel.panel-default.col-lg-6 > div.panel-body > form > div:nth-child(1) > input'); } },
-    passwordField: { get: function () { return $('#app > div > div > div.panel.panel-default.col-lg-6 > div.panel-body > form > div:nth-child(2) > input'); } },
-    signInButton:  { get: function () { return $('#app > div > div > div.panel.panel-default.col-lg-6 > div.panel-body > form > div:nth-child(3) > button'); } },
-    signInForm:    { get: function () { return $('#app > div > div > div.panel.panel-default.col-lg-6'); } },
-    returnMessage: { get: function () { return $('#app > div > div.alert.alert-danger'); } },
+class LoginPage extends Page {
 
-    /**
-     * define or overwrite page methods
-     */
-    open: { value: function() {
-        Page.open.call(this, '/');
-    } },
+  get emailField ()    { return $('#app > div > div > div.panel.panel-default.col-lg-6 > div.panel-body > form > div:nth-child(1) > input'); }
+  get passwordField () { return $('#app > div > div > div.panel.panel-default.col-lg-6 > div.panel-body > form > div:nth-child(2) > input'); }
+  get signInButton ()  { return $('#app > div > div > div.panel.panel-default.col-lg-6 > div.panel-body > form > div:nth-child(3) > button'); }
+  get signInForm()     { return $('#app > div > div > div.panel.panel-default.col-lg-6'); }
+  get returnMessage()  { return $('#app > div > div.alert.alert-danger'); }
 
-    submit: { value: function() {
-        this.form.submitForm();
-    } }
-});
+  open() {
+    super.open('/');
+  }
 
-module.exports = LoginPage;
+  click() {
+    this.signInButton.click();
+  }
 
-// ES6
-// var Page = require('./page');
-//
-// var LoginPage extends Page {
-//
-//   get emailField ()    { return $('#app > div > div > div.panel.panel-default.col-lg-6 > div.panel-body > form > div:nth-child(1) > input'); }
-//   get passwordField () { return $('#app > div > div > div.panel.panel-default.col-lg-6 > div.panel-body > form > div:nth-child(2) > input'); }
-//   get signInButton ()  { return $('#app > div > div > div.panel.panel-default.col-lg-6 > div.panel-body > form > div:nth-child(3) > button'); }
-//   get signInForm()     { return $('#app > div > div > div.panel.panel-default.col-lg-6'); }
-//   get returnMessage()  { return $('#app > div > div.alert.alert-danger'); }
-//
-//   open() {
-//     super.open('/');
-//   }
-//
-//   click() {
-//     this.signInButton.click();
-//   }
-//
-// }
-//
-// export default new LoginPage();
+}
+
+export default new LoginPage();

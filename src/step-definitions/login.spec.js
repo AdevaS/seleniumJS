@@ -1,7 +1,6 @@
-var {Given, When, Then} = require('cucumber');
-var LoginPage = require('../pages/login.page');
-var expect = require('chai').expect;
-
+import { Given, When, Then } from 'cucumber';
+import LoginPage from '../pages/login.page';
+import { expect } from 'chai';
 
 Given(/^I open the home page url "([^"]*)?"$/, (url) => {
   LoginPage.open(url);

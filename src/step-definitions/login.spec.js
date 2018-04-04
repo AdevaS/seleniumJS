@@ -4,12 +4,11 @@ import { expect } from 'chai';
 
 Given(/^I open the home page url "([^"]*)?"$/, (url) => {
   LoginPage.open(url);
-  browser.pause(1000);
+  LoginPage.signInForm.waitForExist(5000);
 });
 
 Given(/^I am at the correct page$/, () => {
   expect(LoginPage.signInForm.getText()).to.contain('Please sign in');
-  browser.pause(1500);
 });
 
 When(/^I clear the email input field$/, () => {
@@ -30,9 +29,9 @@ When(/^I add "([^"]*)?" to the password input field$/, (password) => {
 
 When(/^I click on the sign in button$/, () => {
   LoginPage.signInButton.click();
-  browser.pause(1500);
 });
 
 Then(/^I expect the error message "([^"]*)?"$/, (message) => {
+  LoginPage.returnMessage.waitForExist(2000);
   expect(LoginPage.returnMessage.getText()).to.contain(message);
 });

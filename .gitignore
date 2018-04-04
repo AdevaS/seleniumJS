@@ -62,3 +62,7 @@ typings/
 errorShots/
 screenshots/latest/
 screenshots/diff/
+
+# Allure Report files
+allure-report/
+allure-results/

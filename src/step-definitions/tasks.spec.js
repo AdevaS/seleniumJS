@@ -2,7 +2,8 @@ import { Given, When, Then } from 'cucumber';
 import { expect } from 'chai';
 import LoginPage from '../pages/login.page';
 import TasksPage from '../pages/tasks.page';
-import Converter from '../utilities/converter'
+import Converter from '../utilities/converter';
+import NavbarPage from '../pages/navbar.page';
 
 var taskOnFirstRowSelector = '//*[@id="app"]/div/div/div[2]/div[2]/div/table/tbody/tr[1]';
 
@@ -46,7 +47,18 @@ Then(/^A new task is added to the tasks panel$/, () => {
 Then(/^This task must have a background color "([^"]*)?"$/, (expectedColor) => {
   var actualColorRgba = TasksPage.taskOnFirstRow.getCssProperty('background-color').value;
   var actualColorHex = Converter.rgbaToHex(actualColorRgba);
-  expect(actualColorHex).to.equal(expectedColor);
+
+    // In case of an AssertionError the falty register still needs to be removed
+    try {
+      expect(actualColorHex).to.equal(expectedColor);
+    } catch (e) {
+      TasksPage.firstRowDeleteTaskButton.click();
+      browser.pause(1500);
+      browser.alertAccept();
+      browser.pause(2500);
+      console.log(e);
+      expect.fail();
+    }
 });
 
 Given(/^I click on the delete button$/, () => {
@@ -61,4 +73,8 @@ Then(/^I confirm the deletion on the popup$/, () => {
 
 Then(/^The task must be removed from the tasks panel$/, () => {
   expect(browser.isVisible(taskOnFirstRowSelector)).to.be.false;
+});
+
+Then(/^I click on the sign out button$/, () => {
+  NavbarPage.signOutLink.click();
 });

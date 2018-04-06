@@ -12,8 +12,11 @@ Feature: Testing the TASK PAGE for the Time Management System
     Given I click on the delete button
     And   I confirm the deletion on the popup
     Then  The task must be removed from the tasks panel
+    Then  I click on the sign out button
 
   Scenario: create a new task to validate the correct GREEN background color removing the register afterwards
+    Given I am already logged as the user admin
+    And   I am at the tasks page
     When  I choose todays date in the when input field
     And   I add "8" to the time spent field
     And   I add "The color of this register should be GREEN" to the note text area field
@@ -23,3 +26,4 @@ Feature: Testing the TASK PAGE for the Time Management System
     Given I click on the delete button
     And   I confirm the deletion on the popup
     Then  The task must be removed from the tasks panel
+    Then  I click on the sign out button

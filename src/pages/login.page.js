@@ -13,17 +13,24 @@ class LoginPage extends Page {
     super.open('/');
   }
 
-  loginWith(username) {
+  loginWith(username, password) {
     browser.url('http://vcosta.com.br:8001');
+    var inputLocator = '#app > div > div > div.panel.panel-default.col-lg-6 > div.panel-body > form > div:nth-child(1) > input';
+    var passwordLocator = '#app > div > div > div.panel.panel-default.col-lg-6 > div.panel-body > form > div:nth-child(2) > input';
     browser.pause(3000);
-    if (username = 'admin') {
-      browser.setValue('#app > div > div > div.panel.panel-default.col-lg-6 > div.panel-body > form > div:nth-child(1) > input', 'admin');
+    if (username === 'admin') {
+      browser.setValue(inputLocator, 'admin');
+      browser.setValue(passwordLocator, '123456');
     } else if (username === 'manager') {
-      return usernameInputField.setValue('manager');
+      browser.setValue(inputLocator, 'manager');
+      browser.setValue(passwordLocator, '123456');
+    } else if (username === 'user') {
+      browser.setValue(inputLocator, 'user');
+      browser.setValue(passwordLocator, '123456');
     } else {
-      return usernameInputField.setValue('user');
+      browser.setValue(inputLocator, username);
+      browser.setValue(passwordLocator, password);
     }
-    browser.setValue('#app > div > div > div.panel.panel-default.col-lg-6 > div.panel-body > form > div:nth-child(2) > input', '123456');
     browser.click('#app > div > div > div.panel.panel-default.col-lg-6 > div.panel-body > form > div:nth-child(3) > button');
     browser.pause(5000);
   }

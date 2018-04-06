@@ -26,11 +26,11 @@ When(/^I choose todays date in the when input field$/, () => {
   browser.keys(['0','5']);
 });
 
-When(/^I add "" to the time spent field$/, (timespent) => {
+When(/^I add "([^"]*)?" to the time spent field$/, (timespent) => {
   TasksPage.whenTimeSpentInputField.setValue(timespent);
 });
 
-Then(/^I add "" to the note text area field$/, (note) => {
+Then(/^I add "([^"]*)?" to the note text area field$/, (note) => {
   TasksPage.notesTextAreaField.setValue(note);
 });
 
@@ -43,7 +43,7 @@ Then(/^A new task is added to the tasks panel$/, () => {
   expect(browser.isVisible(taskOnFirstRowSelector)).to.be.true;
 });
 
-Then(/^This task must have a background color ""$/, (expectedColor) => {
+Then(/^This task must have a background color "([^"]*)?"$/, (expectedColor) => {
   var actualColorRgba = TasksPage.taskOnFirstRow.getCssProperty('background-color').value;
   var actualColorHex = Converter.rgbaToHex(actualColorRgba);
   expect(actualColorHex).to.equal(expectedColor);
